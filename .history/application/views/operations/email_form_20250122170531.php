@@ -1,0 +1,123 @@
+<div class="card-body">
+
+	<form id="main" method="post" action="<?php echo base_url().'index.php/'; ?>Operations/update_job" autocomplete="off" enctype="multipart/form-data">
+		
+        <div class="form-group row">
+		    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label">Subject: </label>
+	  		<div class="col-xs-12 col-sm-9 col-md-4 col-lg-4">
+              <input tabindex="1" type="date" name="job_date" id="job_date" class="form-control form-control-sm" value='<?php echo $job['job_date'] ?>' />
+	  		</div>
+
+            <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label">Message</label>
+	  		<div class="col-xs-12 col-sm-9 col-md-4 col-lg-4">
+              <textarea name="payment_term" tabindex="3" id="payment_term" class="form-control form-control-sm" ><?php echo $job['payment']; ?></textarea>
+	  		</div>
+        </div>
+		
+
+		<div class="form-group row">
+
+                <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label"> Files </label>
+				<div class="col-xs-12 col-sm-9 col-md-4 col-lg-4">
+                <table class="table table-bordered table-hover" id='tab_logic'>
+					<thead>
+						<tr><td>Sl</td><td>File</td><td> <a id="add_row" title="Add" class="btn btn-sm bg-blue"><span class="fa fa-plus"></span></a></td></tr>
+					</thead>
+                    <tbody id="file_table">
+						
+                        <?php $i=51;$k=1; foreach($job_files as $file){ ?>
+                        <tr id='<?php echo 'addr'.$i ; ?>'>
+                            <td><?php echo $k;$k++; ?></td>
+                            <td>                               
+                                <?php echo $file->document_path; ?>                             
+                            </td>
+                            <td>                               
+                            <a download href="<?php echo base_url('public/uploded_documents/job_files/'.$file->document_path);?>" title="Download" class="btn btn-sm bg-blue"><span class="fa fa-download"></span></a>
+							<a download onclick="delete_job_file(<?php echo $i; ?>)" title="Delete" class="btn btn-sm bg-blue"><span class="fa fa-trash"></span></a>
+							<input type='hidden' name='<?php echo 'file_id'.$i; ?>' id='<?php echo 'file_id'.$i; ?>' value='<?php echo $file->id; ?>' />
+                            </td>
+                        </tr>
+                        <?php $i++; }?>						
+                        <tr id='addr0'>
+						<td><?php echo $k; ?></td>
+                            <td>                               
+                                <input id="job_file0" name="job_file[]" type="file">                                
+                            </td>
+                            <td>                               
+                                
+                            </td>
+                        </tr>
+						<tr id='addr1'></tr>
+                    </tbody>
+                </table>
+				<input type='hidden' name='dltd_files' id='dltd_files' />
+				</div>
+
+				
+	  		
+		</div>
+                          
+        
+        
+
+        
+        <div class="form-group row">
+            
+        </div>
+        
+		
+		<div class="form-group row">
+			
+		    <label class="col-sm-4"></label>
+            <div class="col-sm-8">
+            <button type='submit'  tabindex="11"  class="btn btn-primary m-b-0" >Send Mail</button>
+            </div>
+		</div>
+	</form>
+</div>
+
+<script>
+	$(document).ready(function() {
+        var k = $("#file_table tr").length;
+		var i = 1;
+        $("#add_row").click(function() {
+            $('#addr' + i).html("<td>" + (k) + "</td><td><input class='form-control' id='job_file"+i+"' name='job_file[]' type='file'></td><td> <a onclick='delete_row("+i+")' title='Delete' class='btn btn-sm bg-blue'><span class='fa fa-trash'></span></a></td>");
+            $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
+            i++;
+        });
+
+        
+
+    });
+
+	function delete_job_file(row){
+		var conf = confirm("Are you sure to delete?");
+		if(conf){
+			var file_id = $('#file_id'+row).val();
+
+			var dltd = $('#dltd_files').val();
+			if(dltd == ''){
+				dltd = file_id;
+			}
+			else{
+				dltd = dltd +','+file_id;
+			}
+			$('#dltd_files').val(dltd);	
+			remove_row(row,1);
+		}
+			
+		
+	}
+
+	function remove_row(row,conf){
+		if(conf == 0){
+			conf = confirm("Are you sure to delete?");
+		}
+		if(conf){
+			$('#addr'+row).remove();
+		}
+		
+	}
+</script>
+
+

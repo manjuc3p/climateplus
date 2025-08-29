@@ -1,0 +1,14 @@
+<?php 
+	 $this->load->view('includes/header'); 
+	 $this->load->view('includes/top_navbar');
+	 //$this->load->view('includes/alert'); 
+	 //$this->load->view('includes/validation.php'); 
+	 
+	 //$this->load->view('includes/breadcrumb.php'); 
+
+		$this->load->view($main_content);
+
+	 $this->load->view('includes/footer');
+	 //$this->load->view('includes/settings_right_sidebar');
+	 $this->load->view('includes/jscript');
+  ?>
