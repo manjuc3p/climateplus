@@ -73,7 +73,10 @@
 			<div class="col-xs-12 col-sm-9 col-md-4 col-lg-4">
 				<textarea name="job_desc" id="job_desc" rows='5' cols='40' class="form-control form-control-sm" tabindex="4" required><?php echo $job['job_desc'] ? $job['job_desc'] : $job['job_title'];  ?></textarea>
 			</div>
-
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label">Additional Notes:</label>
+			<div class="col-xs-12 col-sm-9 col-md-4 col-lg-4">
+				<textarea name="addnotes" id="addnotes" class="form-control form-control-sm" rows="5"><?php echo $job['additional_notes'] ?? ''; ?></textarea>
+			</div>
 		</div>
 
 		<div class="form-group row">
@@ -184,10 +187,7 @@
 			</div>
 
 
-			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label">Additional Notes:</label>
-			<div class="col-xs-12 col-sm-9 col-md-4 col-lg-4">
-				<textarea name="addnotes" id="addnotes" class="form-control form-control-sm" rows="5"><?php echo $job['additional_notes'] ?? ''; ?></textarea>
-			</div>
+
 
 
 
